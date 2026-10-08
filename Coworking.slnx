@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Coworking.Api/Coworking.Api.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Coworking.Tests/Coworking.Tests.csproj" />
+  </Folder>
+</Solution>

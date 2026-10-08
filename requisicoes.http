@@ -1,0 +1,156 @@
+### Coworking API — requisições de teste
+### Use com a extensão REST Client (VS Code) ou o Rider HTTP Client.
+### Ajuste a variável abaixo se a API rodar em outra porta.
+
+@host = http://localhost:5000
+
+### ============================================================
+###  ROTAS ESPECIAIS
+### ============================================================
+
+### Health check (valida acesso ao banco)
+GET {{host}}/health
+
+### Versão / commit deployed
+GET {{host}}/api/versao
+
+### ============================================================
+###  SALAS — leitura pública
+### ============================================================
+
+### Listar salas (página 1)
+GET {{host}}/api/salas?pagina=1&tamanho=10
+
+### Buscar salas por nome
+GET {{host}}/api/salas?busca=aurora&pagina=1&tamanho=10
+
+### Detalhe de sala (200)
+GET {{host}}/api/salas/1
+
+### Detalhe de sala inexistente (404 ProblemDetails)
+GET {{host}}/api/salas/9999
+
+### ============================================================
+###  AUTENTICAÇÃO
+### ============================================================
+
+### Login do ADMIN (seed: senha do env Seed__AdminSenha)
+# @name loginAdmin
+POST {{host}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@coworking.com",
+  "senha": "Admin@123"
+}
+
+### Login de CLIENTE (seed)
+# @name loginCliente
+POST {{host}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "ana@exemplo.com",
+  "senha": "Cliente@123"
+}
+
+### Cadastro de novo cliente
+POST {{host}}/api/auth/registro
+Content-Type: application/json
+
+{
+  "nome": "Maria Teste",
+  "email": "maria@teste.com",
+  "senha": "Maria@123"
+}
+
+### ============================================================
+###  SALAS — escrita (só ADMIN)
+### ============================================================
+
+### Criar sala como admin (201 + Location)
+POST {{host}}/api/salas
+Content-Type: application/json
+Authorization: Bearer {{loginAdmin.response.body.token}}
+
+{
+  "nome": "Sala Nova HTTP",
+  "descricao": "Criada pelo ficheiro requisições.http",
+  "capacidade": 6,
+  "precoHora": 49.90,
+  "recursos": "TV, Wi-Fi 6"
+}
+
+### Criar sala SEM token (401)
+POST {{host}}/api/salas
+Content-Type: application/json
+
+{
+  "nome": "Sala Anônima",
+  "capacidade": 4,
+  "precoHora": 10,
+  "recursos": ""
+}
+
+### Atualizar sala como admin (200)
+PUT {{host}}/api/salas/1
+Content-Type: application/json
+Authorization: Bearer {{loginAdmin.response.body.token}}
+
+{
+  "nome": "Sala Aurora (atualizada)",
+  "descricao": "Descrição atualizada via HTTP",
+  "capacidade": 8,
+  "precoHora": 52.00,
+  "recursos": "TV, Wi-Fi 6, Café"
+}
+
+### Excluir sala como admin (204)
+DELETE {{host}}/api/salas/8
+Authorization: Bearer {{loginAdmin.response.body.token}}
+
+### ============================================================
+###  RESERVAS — usuário logado
+### ============================================================
+
+### Criar reserva (cliente logado) — 201
+# @name reserva1
+POST {{host}}/api/reservas
+Content-Type: application/json
+Authorization: Bearer {{loginCliente.response.body.token}}
+
+{
+  "salaId": 1,
+  "inicio": "2026-11-20T14:00:00-03:00",
+  "fim": "2026-11-20T16:00:00-03:00"
+}
+
+### Tentar reservar MESMA sala em horário que colide (409 Conflict!)
+POST {{host}}/api/reservas
+Content-Type: application/json
+Authorization: Bearer {{loginCliente.response.body.token}}
+
+{
+  "salaId": 1,
+  "inicio": "2026-11-20T15:00:00-03:00",
+  "fim": "2026-11-20T17:00:00-03:00"
+}
+
+### Listar MINHAS reservas (cliente logado)
+GET {{host}}/api/reservas
+Authorization: Bearer {{loginCliente.response.body.token}}
+
+### Alterar minha reserva (200)
+PUT {{host}}/api/reservas/1
+Content-Type: application/json
+Authorization: Bearer {{loginCliente.response.body.token}}
+
+{
+  "salaId": 1,
+  "inicio": "2026-11-21T09:00:00-03:00",
+  "fim": "2026-11-21T11:00:00-03:00"
+}
+
+### Excluir minha reserva (204)
+DELETE {{host}}/api/reservas/1
+Authorization: Bearer {{loginCliente.response.body.token}}

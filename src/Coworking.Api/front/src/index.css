@@ -1,0 +1,404 @@
+:root {
+  --cor-primaria: #4f46e5;
+  --cor-primaria-escura: #3730a3;
+  --cor-acao: #059669;
+  --cor-erro: #dc2626;
+  --cor-fundo: #f4f5fb;
+  --cor-superficie: #ffffff;
+  --cor-texto: #1e293b;
+  --cor-texto-suave: #64748b;
+  --cor-borda: #e2e8f0;
+  --raio: 14px;
+  --sombra: 0 6px 24px rgba(30, 41, 59, 0.08);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: var(--cor-fundo);
+  color: var(--cor-texto);
+  line-height: 1.55;
+}
+
+.aplicacao {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.conteudo {
+  flex: 1;
+  width: min(1100px, 100% - 2.5rem);
+  margin: 0 auto;
+  padding: 2rem 0 4.5rem;
+}
+
+/* ------------------------------ Navbar ------------------------------ */
+.navbar {
+  background: var(--cor-superficie);
+  border-bottom: 1px solid var(--cor-borda);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.navbar-interna {
+  width: min(1100px, 100% - 2.5rem);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.9rem 0;
+  gap: 1rem;
+}
+
+.logotipo {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--cor-primaria);
+  text-decoration: none;
+  letter-spacing: -0.02em;
+}
+
+.logotipo span {
+  color: var(--cor-texto-suave);
+  font-weight: 500;
+}
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: var(--cor-texto);
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  transition: background 0.15s;
+}
+
+.navbar a:hover {
+  background: #eef2ff;
+}
+
+/* ------------------------------ Botões ------------------------------ */
+.botao {
+  display: inline-block;
+  border: none;
+  border-radius: 999px;
+  padding: 0.6rem 1.4rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  background: var(--cor-primaria);
+  color: #fff;
+  text-decoration: none;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.botao:hover {
+  background: var(--cor-primaria-escura);
+  transform: translateY(-1px);
+}
+
+.botao.secundario {
+  background: #eef2ff;
+  color: var(--cor-primaria);
+}
+
+.botao.secundario:hover {
+  background: #e0e7ff;
+}
+
+.botao.perigo {
+  background: #fee2e2;
+  color: var(--cor-erro);
+}
+
+.botao.perigo:hover {
+  background: #fecaca;
+}
+
+.botao:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ------------------------------ Cabeçalhos ------------------------------ */
+.cabecalho-pagina {
+  margin-bottom: 1.75rem;
+}
+
+.cabecalho-pagina h1 {
+  font-size: 2rem;
+  letter-spacing: -0.02em;
+}
+
+.cabecalho-pagina p {
+  color: var(--cor-texto-suave);
+  margin-top: 0.3rem;
+}
+
+/* ------------------------------ Busca ------------------------------ */
+.barra-busca {
+  display: flex;
+  gap: 0.6rem;
+  margin-bottom: 1.5rem;
+}
+
+.barra-busca input {
+  flex: 1;
+  padding: 0.8rem 1.2rem;
+  border: 1px solid var(--cor-borda);
+  border-radius: 999px;
+  font-size: 1rem;
+  background: var(--cor-superficie);
+  outline: none;
+  transition: border 0.15s, box-shadow 0.15s;
+}
+
+.barra-busca input:focus {
+  border-color: var(--cor-primaria);
+  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.12);
+}
+
+/* ------------------------------ Grade de salas ------------------------------ */
+.grade-salas {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.4rem;
+}
+
+.cartao-sala {
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  padding: 1.4rem;
+  box-shadow: var(--sombra);
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  transition: transform 0.15s;
+}
+
+.cartao-sala:hover {
+  transform: translateY(-3px);
+}
+
+.cartao-sala h3 {
+  font-size: 1.15rem;
+}
+
+.etiqueta-capacidade {
+  align-self: flex-start;
+  background: #ecfdf5;
+  color: var(--cor-acao);
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.2rem 0.7rem;
+  border-radius: 999px;
+}
+
+.cartao-sala .descricao {
+  color: var(--cor-texto-suave);
+  font-size: 0.92rem;
+  flex: 1;
+}
+
+.cartao-sala .recursos {
+  color: var(--cor-texto-suave);
+  font-size: 0.82rem;
+  font-style: italic;
+}
+
+.preco {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--cor-primaria);
+}
+
+.preco small {
+  font-weight: 500;
+  color: var(--cor-texto-suave);
+}
+
+/* ------------------------------ Paginação ------------------------------ */
+.paginacao {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.paginacao button {
+  border: 1px solid var(--cor-borda);
+  background: var(--cor-superficie);
+  border-radius: 999px;
+  padding: 0.5rem 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.paginacao button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ------------------------------ Formulários ------------------------------ */
+.formulario {
+  max-width: 460px;
+  margin: 2.5rem auto;
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra);
+  padding: 2.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.formulario h1 {
+  font-size: 1.6rem;
+  text-align: center;
+}
+
+.campo label {
+  display: block;
+  font-size: 0.88rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+
+.campo input,
+.campo select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--cor-borda);
+  border-radius: 10px;
+  font-size: 1rem;
+  outline: none;
+  background: var(--cor-superficie);
+  transition: border 0.15s, box-shadow 0.15s;
+}
+
+.campo input:focus,
+.campo select:focus {
+  border-color: var(--cor-primaria);
+  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.12);
+}
+
+.erro {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: var(--cor-erro);
+  padding: 0.85rem 1.1rem;
+  border-radius: 10px;
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.aviso-sucesso {
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: var(--cor-acao);
+  padding: 0.85rem 1.1rem;
+  border-radius: 10px;
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.texto-rodape-form {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--cor-texto-suave);
+}
+
+.texto-rodape-form a {
+  color: var(--cor-primaria);
+  font-weight: 700;
+}
+
+/* ------------------------------ Painel ------------------------------ */
+.formulario-reserva {
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra);
+  padding: 1.6rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  align-items: end;
+  margin-bottom: 2rem;
+}
+
+.formulario-reserva .campo {
+  display: flex;
+  flex-direction: column;
+}
+
+.lista-reservas {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.item-reserva {
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  padding: 1.1rem 1.4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: var(--sombra);
+}
+
+.item-reserva .info strong {
+  display: block;
+  font-size: 1.05rem;
+}
+
+.item-reserva .info span {
+  color: var(--cor-texto-suave);
+  font-size: 0.9rem;
+}
+
+.vazio {
+  text-align: center;
+  color: var(--cor-texto-suave);
+  padding: 3rem 0;
+}
+
+/* ------------------------------ Rodapé fixo ------------------------------ */
+.rodape {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #0f172a;
+  color: #cbd5e1;
+  text-align: center;
+  font-size: 0.82rem;
+  padding: 0.55rem 1rem;
+  z-index: 20;
+}
+
+@media (max-width: 640px) {
+  .navbar-interna {
+    flex-direction: column;
+  }
+}
